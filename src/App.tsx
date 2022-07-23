@@ -2,7 +2,8 @@ import "./styles/App.css";
 import React from "react";
 
 function App() {
-  const classement = [
+  
+  const classement:{participant: string, dateArrivee: number, dateDepart: number}[] =  [
     {
       participant: "Damien Da Silva Bregieiro",
       dateDepart: 1643724000,
@@ -55,11 +56,12 @@ function App() {
     },
   ];
 
-  const calculateRunningTime = classement.map(
+  const calculateRunningTime:{participant: string, dateArrivee: number}[] = classement.map(
     (result) =>
       (result = {
-        Participant: result.participant,
-        Résultat: result.dateArrivee - result.dateDepart,
+        participant: result.participant,
+        dateArrivee: result.dateArrivee - result.dateDepart,
+        dateDepart: result.dateDepart,
       })
   );
 
@@ -69,13 +71,13 @@ function App() {
         <h1 className="titreConteneur">Classement :</h1>
         {calculateRunningTime
           .sort((a, b) =>
-            a.Résultat > b.Résultat ? 1 : a.Résultat < b.Résultat ? -1 : 0
+            a.dateArrivee > b.dateArrivee ? 1 : a.dateArrivee < b.dateArrivee ? -1 : 0
           )
           .map((result) => (
-            <div className="participant" key={result.Participant}>
-              <h1 className="nomParticipant">{result.Participant}</h1>
+            <div className="participant" key={result.participant}>
+              <h1 className="nomParticipant">{result.participant}</h1>
               <h2 className="resultatParticipant">
-                <em>Résultat :</em> <mark>{result.Résultat}</mark>
+                <em>Résultat :</em> <mark>{result.dateArrivee}</mark>
               </h2>
             </div>
           ))}
