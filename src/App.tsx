@@ -2,8 +2,30 @@ import "./styles/App.css";
 import React from "react";
 
 function App() {
+
+  interface Classement {
+    participant: string;
+    dateDepart: number;
+    dateArrivee: number;
+  }
+
+//   class NewClassement implements Classement {
+//     Participant: string;
+//     Resultat: number;
   
-  const classement:{participant: string, dateArrivee: number, dateDepart: number}[] =  [
+
+//   constructor(Participant: string, Resultat: number) {
+//     this.Participant = participant
+//     this.Resultat = dateArrivee - dateDepart
+//   }
+// }
+
+  interface NewClassement extends Classement {
+    Participant: string;
+    Resultat: number;
+  }
+  
+  const classement: Classement[] =  [
     {
       participant: "Damien Da Silva Bregieiro",
       dateDepart: 1643724000,
@@ -56,12 +78,14 @@ function App() {
     },
   ];
 
-  const calculateRunningTime:{participant: string, dateArrivee: number}[] = classement.map(
-    (result) =>
+  const calculateRunningTime = classement.map(
+    (result: NewClassement) =>
       (result = {
+        Participant: result.participant,
+        Resultat: result.dateArrivee - result.dateDepart,
         participant: result.participant,
-        dateArrivee: result.dateArrivee - result.dateDepart,
         dateDepart: result.dateDepart,
+        dateArrivee: result.dateArrivee,
       })
   );
 
@@ -70,14 +94,14 @@ function App() {
       <div className="conteneur">
         <h1 className="titreConteneur">Classement :</h1>
         {calculateRunningTime
-          .sort((a, b) =>
-            a.dateArrivee > b.dateArrivee ? 1 : a.dateArrivee < b.dateArrivee ? -1 : 0
+          .sort((a: NewClassement, b: NewClassement) =>
+            a.Resultat > b.Resultat ? 1 : a.Resultat < b.Resultat ? -1 : 0
           )
-          .map((result) => (
+          .map((result: NewClassement) => (
             <div className="participant" key={result.participant}>
               <h1 className="nomParticipant">{result.participant}</h1>
               <h2 className="resultatParticipant">
-                <em>Résultat :</em> <mark>{result.dateArrivee}</mark>
+                <em>Résultat :</em> <mark>{result.Resultat}</mark>
               </h2>
             </div>
           ))}
