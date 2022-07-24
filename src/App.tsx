@@ -9,17 +9,6 @@ function App() {
     dateArrivee: number;
   }
 
-//   class NewClassement implements Classement {
-//     Participant: string;
-//     Resultat: number;
-  
-
-//   constructor(Participant: string, Resultat: number) {
-//     this.Participant = participant
-//     this.Resultat = dateArrivee - dateDepart
-//   }
-// }
-
   interface NewClassement extends Classement {
     Participant: string;
     Resultat: number;
